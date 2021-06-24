@@ -1,0 +1,16 @@
+.list {
+  text-align: left;
+  max-width: 750px;
+  margin: auto;
+}
+
+ul {
+  padding: 1px;  
+  padding-bottom: 30px;
+}
+
+.divider{
+  width:5px;
+  height:auto;
+  display:inline-block;
+}

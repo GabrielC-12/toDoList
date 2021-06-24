@@ -1,0 +1,125 @@
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Digite a senha: </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div>
+              <label for="username">Username:</label>
+              <br>
+              <input type="text" id="username" name="username" value="supervisor" disabled>
+              <br><br>
+          </div>
+          
+          <div>
+              <label for="pass">Password (8 characters minimum):</label>
+              <br>
+              <input type="password" id="pass" name="password"
+                     minlength="8" required>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button (click)="checkPwd()" data-bs-dismiss="modal">Sign In</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="list row">
+
+
+  <div id="onhold" class="col-md-6">
+    <h4>On Hold Tasks</h4>
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let task of tasks; let i = index"
+        [class.active]="i == currentIndex && listSelect===0" 
+        (click)="setActiveTask(task, i, true)"
+      >
+      <div>{{ task.title }}</div>
+      </li>
+    </ul>
+
+  </div>
+  
+  <div class="col-md-6">
+    <div *ngIf="currentTask.id">
+      <h4>Task</h4>
+      <div>
+        <label><strong>Title:</strong></label> {{ currentTask.title }}
+      </div>
+      <div>
+        <label><strong>Description:</strong></label>
+        {{ currentTask.description }}
+      </div>
+      <div>
+        <label><strong>Responsible:</strong></label>
+        {{ currentTask.responsible}}
+      </div>
+      <div>
+        <label><strong>Email:</strong></label>
+        {{ currentTask.email}}
+      </div>
+      <!-- <div>
+        <label><strong>Status:</strong></label>
+        {{ currentTask.published ? "Published" : "Pending" }}
+      </div> -->
+      <div>
+        <label><strong>Complete:</strong></label>
+        {{ currentTask.isComplete ? true : false }}
+      </div>
+
+      <a class="badge badge-warning" routerLink="/tasks/{{ currentTask.id }}">
+        Edit
+      </a>
+      <div class="divider"></div>
+
+      <a
+          class="badge badge-success"
+          type="button"
+          (click)="onComplete(currentTask)" 
+          *ngIf="!currentTask.isComplete"
+        >
+          Check
+    </a>
+    <div class="divider"></div>
+
+    <a
+          class="badge badge-secondary"
+          type="button"
+          *ngIf="currentTask.isComplete"
+          data-bs-toggle="modal" data-bs-target="#modal"
+        >
+          Uncheck
+    </a>
+    </div>
+
+    <div *ngIf="!currentTask">
+      <br />
+      <p>Please click on a Task...</p>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <h4>Completed Tasks</h4>
+    <ul id="complete" class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let task of completedTasks; let i = index"
+        [class.active]="i == currentIndex && listSelect===1"
+        (click)="setActiveTask(task, i, false)"
+      >
+      <div>{{ task.title }}</div>
+      </li>
+    </ul>
+
+    <button class="m-3 btn btn-sm btn-danger" (click)="removeAllTasks()">
+      Remove All
+    </button>
+  </div>
+  
+</div>

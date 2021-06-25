@@ -4,3 +4,10 @@
         font-weight: bold;
     }
 }
+
+.container {
+    padding-top: 5px;
+    width: 650px;
+    background-color: white;
+    margin: auto;
+  }

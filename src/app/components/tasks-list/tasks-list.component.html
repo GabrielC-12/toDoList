@@ -1,4 +1,6 @@
-<!-- Modal -->
+
+<div class="container" style="background-color: #e3f2fd; border:1px solid #cecece;">
+  <!-- Modal -->
 <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -32,6 +34,7 @@
 
 
   <div id="onhold" class="col-md-6">
+    <br>
     <h4>On Hold Tasks</h4>
     <ul class="list-group">
       <li
@@ -47,6 +50,7 @@
   </div>
   
   <div class="col-md-6">
+    <br><br>
     <div *ngIf="currentTask.id">
       <h4>Task</h4>
       <div>
@@ -70,7 +74,7 @@
       </div> -->
       <div>
         <label><strong>Complete:</strong></label>
-        {{ currentTask.isComplete ? true : false }}
+        {{ currentTask.isComplete ? 'Yes' : 'No' }}
       </div>
 
       <a class="badge badge-warning" routerLink="/tasks/{{ currentTask.id }}">
@@ -122,4 +126,5 @@
     </button>
   </div>
   
+</div>
 </div>

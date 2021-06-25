@@ -2,3 +2,8 @@
   max-width: 400px;
   margin: auto;
 }
+
+.container {
+  padding-top: 5px;
+  padding-bottom: 10px;
+}

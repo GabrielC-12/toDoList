@@ -27,7 +27,7 @@ export class TasksListComponent implements OnInit {
   listSelect = -1;
   pass = '';
   count = 0;
-  // count2 = 0;
+  countRandom = 0;
   // randomTask: Task = {};
 
   constructor(private taskService: TaskService, private taskServiceDog: TaskServiceDog) {}
@@ -95,7 +95,8 @@ export class TasksListComponent implements OnInit {
     this.taskServiceDog.getDogTask('dog', 3).subscribe(
       response => {
         for (var i = 0; i < 3; i++) {
-          this.saveRandomTask(i, response[i].text);
+          this.saveRandomTask(this.countRandom, response[i].text);
+          this.countRandom++;
         }
       },
       error => {

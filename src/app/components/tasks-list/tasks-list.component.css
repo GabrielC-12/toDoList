@@ -1,6 +1,6 @@
 .list {
   text-align: left;
-  max-width: 750px;
+  width: 600px;
   margin: auto;
 }
 
@@ -13,4 +13,12 @@ ul {
   width:5px;
   height:auto;
   display:inline-block;
+}
+
+.container {
+  /* position: absolute; */
+  padding-top: 5px;
+  width: 600px;
+  margin: auto;
+  display: inline-block;
 }

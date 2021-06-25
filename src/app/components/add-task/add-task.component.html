@@ -1,57 +1,61 @@
-<div>
-  <div class="submit-form">
-    <div *ngIf="!submitted">
-      <div class="form-group">
-        <label for="title">Title</label>
-        <input
-          type="text"
-          class="form-control"
-          id="title"
-          required
-          [(ngModel)]="task.title"
-          name="title"
-        />
+<div class="container" style="background-color: #e3f2fd; border:1px solid #cecece;">
+  <div>
+    <div class="submit-form">
+      <div *ngIf="!submitted">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            required
+            [(ngModel)]="task.title"
+            name="title"
+          />
+        </div>
+  
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input
+            class="form-control"
+            id="description"
+            required
+            [(ngModel)]="task.description"
+            name="description"
+          />
+        </div>
+  
+        <div class="form-group">
+          <label for="responsible">Responsible</label>
+          <input
+            class="form-control"
+            id="responsible"
+            required
+            [(ngModel)]="task.responsible"
+            name="responsible"
+          />
+        </div>
+  
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            class="form-control"
+            id="email"
+            required
+            [(ngModel)]="task.email"
+            name="email"
+          />
+        </div>
+  
+        <button (click)="saveTask()" class="btn btn-success">Submit</button>
       </div>
-
-      <div class="form-group">
-        <label for="description">Description</label>
-        <input
-          class="form-control"
-          id="description"
-          required
-          [(ngModel)]="task.description"
-          name="description"
-        />
+  
+      <div *ngIf="submitted">
+        <h4>Task was submitted successfully!</h4>
+        <button class="btn btn-success" (click)="newTask()">Add</button>
       </div>
-
-      <div class="form-group">
-        <label for="responsible">Responsible</label>
-        <input
-          class="form-control"
-          id="responsible"
-          required
-          [(ngModel)]="task.responsible"
-          name="responsible"
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input
-          class="form-control"
-          id="email"
-          required
-          [(ngModel)]="task.email"
-          name="email"
-        />
-      </div>
-
-      <button (click)="saveTask()" class="btn btn-success">Submit</button>
-    </div>
-
-    <div *ngIf="submitted">
-      <h4>Task was submitted successfully!</h4>
-      <button class="btn btn-success" (click)="newTask()">Add</button>
     </div>
   </div>
+  
 </div>
+

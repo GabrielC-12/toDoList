@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from 'src/app/models/task.model';
+import { TaskServiceDog } from 'src/app/services-dog/task.service.dog';
 import { TaskService } from 'src/app/services/task.service';
-import * as $ from 'jquery';
-import { of } from 'rxjs';
 
 @Component({
   selector: 'app-tasks-list',
@@ -10,6 +9,15 @@ import { of } from 'rxjs';
   styleUrls: ['./tasks-list.component.css']
 })
 export class TasksListComponent implements OnInit {
+
+  taskRandom: Task = {
+    title: 'Random Dog Fact ',
+    description: '',
+    responsible: 'Eu',
+    email: 'eu@me.com',
+    isComplete: false,
+    published: false
+  };
 
   tasks?: Task[];
   completedTasks?: Task[];
@@ -19,10 +27,10 @@ export class TasksListComponent implements OnInit {
   listSelect = -1;
   pass = '';
   count = 0;
-  count2 = 0;
-  randomTask: Task = {};
+  // count2 = 0;
+  // randomTask: Task = {};
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService, private taskServiceDog: TaskServiceDog) {}
 
   ngOnInit(): void {
     this.retrieveTasks();
@@ -59,30 +67,40 @@ export class TasksListComponent implements OnInit {
     this.currentIndex = index;
   }
 
-  addRandomTasks(): void {
-    $.ajax({
-      url: "https://cat-fact.herokuapp.com/facts",
-      type: 'GET',
-      dataType: 'json', // added data type
-      success: function(res) {
-        function getRandomInt(min: number, max: number): number {
-          min = Math.ceil(min);
-          max = Math.floor(max);
-          return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
-        }
-          var randomT = res[getRandomInt(0, 5)].text
+  saveRandomTask(t: number, msg: string): void {
+    const data = {
+      title: this.taskRandom.title + t.toString(),
+      description: msg,
+      responsible: this.taskRandom.responsible,
+      email: this.taskRandom.email,
+      isComplete: this.taskRandom.isComplete
+    };
+    // console.log(data);
+    this.createTasks(data);
+    this.refreshList();
+  }
 
-          this.randomTask = {
-            "title": "Random Task" + this.count2,
-            "description": randomT,
-            "responsible": "Eu",
-            "email": "eu@me.com"
-          }
-          console.log(this.randomTask);
-          this.count2++;
-      }
-  });
-  this.saveBack(this.randomTask);
+  createTasks(data: Task): void {
+      this.taskService.create(data)
+      .subscribe(
+        response => {
+          console.log(response);
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
+  addRandomTasks(): void {
+    this.taskServiceDog.getDogTask('dog', 3).subscribe(
+      response => {
+        for (var i = 0; i < 3; i++) {
+          this.saveRandomTask(i, response[i].text);
+        }
+      },
+      error => {
+        console.log(error);
+      });
   }
 
   searchTitle(): void {

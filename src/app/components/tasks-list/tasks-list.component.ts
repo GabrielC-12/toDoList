@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from 'src/app/models/task.model';
 import { TaskService } from 'src/app/services/task.service';
+import * as $ from 'jquery';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-tasks-list',
@@ -17,6 +19,8 @@ export class TasksListComponent implements OnInit {
   listSelect = -1;
   pass = '';
   count = 0;
+  count2 = 0;
+  randomTask: Task = {};
 
   constructor(private taskService: TaskService) {}
 
@@ -55,16 +59,30 @@ export class TasksListComponent implements OnInit {
     this.currentIndex = index;
   }
 
-  removeAllTasks(): void {
-    this.taskService.deleteAll()
-      .subscribe(
-        response => {
-          console.log(response);
-          this.refreshList();
-        },
-        error => {
-          console.log(error);
-        });
+  addRandomTasks(): void {
+    $.ajax({
+      url: "https://cat-fact.herokuapp.com/facts",
+      type: 'GET',
+      dataType: 'json', // added data type
+      success: function(res) {
+        function getRandomInt(min: number, max: number): number {
+          min = Math.ceil(min);
+          max = Math.floor(max);
+          return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+        }
+          var randomT = res[getRandomInt(0, 5)].text
+
+          this.randomTask = {
+            "title": "Random Task" + this.count2,
+            "description": randomT,
+            "responsible": "Eu",
+            "email": "eu@me.com"
+          }
+          console.log(this.randomTask);
+          this.count2++;
+      }
+  });
+  this.saveBack(this.randomTask);
   }
 
   searchTitle(): void {
